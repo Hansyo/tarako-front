@@ -94,16 +94,16 @@ export const TaskTimeline = ({ userId }: Props) => {
             <h3 className="text-2xl font-bold">本日</h3>
             <Timeline bulletSize={32} className="mt-5">
               {todayTasks.map((item) => {
-                const progressPercentage = item.progresses?.reduce(
+                const progressPercentage = item.progresses.reduce(
                   (prev, current) => {
                     if (
-                      prev?.percentage == undefined ||
-                      current?.percentage == undefined
+                      prev.percentage == undefined ||
+                      current.percentage == undefined
                     ) {
                       return prev;
                     }
 
-                    return prev?.percentage > current?.percentage
+                    return prev.percentage > current.percentage
                       ? prev
                       : current;
                   },
@@ -162,7 +162,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item?.tags?.map((tag) => {
+                        {item.tags.map((tag) => {
                           return (
                             <span
                               key={tag}
@@ -174,7 +174,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                         })}
                       </div>
                       <p className="text-sm text-light">
-                        進捗率: {progressPercentage?.percentage}%
+                        進捗率: {progressPercentage.percentage}%
                       </p>
                     </div>
                   </Timeline.Item>
@@ -189,16 +189,16 @@ export const TaskTimeline = ({ userId }: Props) => {
             <h3 className="text-2xl font-bold">昨日</h3>
             <Timeline bulletSize={32} className="mt-5">
               {yesterdayTasks.map((item) => {
-                const progressPercentage = item.progresses?.reduce(
+                const progressPercentage = item.progresses.reduce(
                   (prev, current) => {
                     if (
-                      prev?.percentage == undefined ||
-                      current?.percentage == undefined
+                      prev.percentage == undefined ||
+                      current.percentage == undefined
                     ) {
                       return prev;
                     }
 
-                    return prev?.percentage > current?.percentage
+                    return prev.percentage > current.percentage
                       ? prev
                       : current;
                   },
@@ -256,7 +256,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item?.tags?.map((tag) => {
+                        {item.tags.map((tag) => {
                           return (
                             <span
                               key={tag}
@@ -268,7 +268,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                         })}
                       </div>
                       <p className="text-sm text-light">
-                        進捗率: {progressPercentage?.percentage}%
+                        進捗率: {progressPercentage.percentage}%
                       </p>
                     </div>
                   </Timeline.Item>
@@ -283,16 +283,16 @@ export const TaskTimeline = ({ userId }: Props) => {
             <h3 className="text-2xl font-bold">一昨日以前</h3>
             <Timeline bulletSize={32} className="mt-5">
               {beforeYesterdayTasks.map((item) => {
-                const progressPercentage = item.progresses?.reduce(
+                const progressPercentage = item.progresses.reduce(
                   (prev, current) => {
                     if (
-                      prev?.percentage == undefined ||
-                      current?.percentage == undefined
+                      prev.percentage == undefined ||
+                      current.percentage == undefined
                     ) {
                       return prev;
                     }
 
-                    return prev?.percentage > current?.percentage
+                    return prev.percentage > current.percentage
                       ? prev
                       : current;
                   },
@@ -350,7 +350,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item?.tags?.map((tag) => {
+                        {item.tags.map((tag) => {
                           return (
                             <span
                               key={tag}
@@ -362,7 +362,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                         })}
                       </div>
                       <p className="text-sm text-light">
-                        進捗率: {progressPercentage?.percentage}%
+                        進捗率: {progressPercentage.percentage}%
                       </p>
                     </div>
                   </Timeline.Item>
