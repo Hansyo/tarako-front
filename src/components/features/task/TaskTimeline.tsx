@@ -162,16 +162,18 @@ export const TaskTimeline = ({ userId }: Props) => {
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item.tags.map((tag) => {
-                          return (
-                            <span
-                              key={tag}
-                              className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
-                            >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                        {item.tags.length > 0
+                          ? item.tags.map((tag) => {
+                              return (
+                                <span
+                                  key={tag}
+                                  className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })
+                          : null}
                       </div>
                       <p className="text-sm text-light">
                         進捗率: {progressPercentage.percentage}%
@@ -256,16 +258,18 @@ export const TaskTimeline = ({ userId }: Props) => {
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item.tags.map((tag) => {
-                          return (
-                            <span
-                              key={tag}
-                              className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
-                            >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                        {item.tags.length > 0
+                          ? item.tags.map((tag) => {
+                              return (
+                                <span
+                                  key={tag}
+                                  className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })
+                          : null}
                       </div>
                       <p className="text-sm text-light">
                         進捗率: {progressPercentage.percentage}%
@@ -350,16 +354,18 @@ export const TaskTimeline = ({ userId }: Props) => {
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item.tags.map((tag) => {
-                          return (
-                            <span
-                              key={tag}
-                              className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
-                            >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                        {item.tags.length > 0
+                          ? item.tags.map((tag) => {
+                              return (
+                                <span
+                                  key={tag}
+                                  className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })
+                          : null}
                       </div>
                       <p className="text-sm text-light">
                         進捗率: {progressPercentage.percentage}%
