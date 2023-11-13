@@ -20,6 +20,14 @@ export const ChatInput = ({
   recording,
   onSend,
 }: Props) => {
+  const doFunctionWhenEnterPlusMeta = (
+    e: React.KeyboardEvent,
+    func: () => void,
+  ) => {
+    if (e.key === 'Enter' && e.metaKey) {
+      func();
+    }
+  };
   return (
     <div>
       {recording && <div className="mb-8 text-lg">{transcript}</div>}
@@ -27,6 +35,7 @@ export const ChatInput = ({
         <Textarea
           value={value}
           onChange={(e) => onChange(e.currentTarget.value)}
+          onKeyDown={(e) => doFunctionWhenEnterPlusMeta(e, onSend)}
           placeholder="やったことや今の気分を入力してください"
           autosize
           minRows={1}
