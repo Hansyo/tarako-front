@@ -43,7 +43,7 @@ export const ChatInput = ({
           disabled={recording}
           className="flex-1"
         />
-        <div className="flex items-center gap-x-2">
+        <div className="items-center gap-x-2 md:flex">
           <ActionIcon
             size="lg"
             color="gray"
