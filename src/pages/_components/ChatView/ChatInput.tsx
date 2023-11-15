@@ -31,7 +31,7 @@ export const ChatInput = ({
   return (
     <div>
       {recording && <div className="mb-8 text-lg">{transcript}</div>}
-      <div className="flex items-end gap-x-2">
+      <div className="items-end gap-x-2 md:flex">
         <Textarea
           value={value}
           onChange={(e) => onChange(e.currentTarget.value)}
@@ -43,7 +43,7 @@ export const ChatInput = ({
           disabled={recording}
           className="flex-1"
         />
-        <div className="items-center gap-x-2 md:flex">
+        <div className="flex items-center justify-center gap-x-2">
           <ActionIcon
             size="lg"
             color="gray"
