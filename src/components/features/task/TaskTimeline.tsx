@@ -94,16 +94,16 @@ export const TaskTimeline = ({ userId }: Props) => {
             <h3 className="text-2xl font-bold">本日</h3>
             <Timeline bulletSize={32} className="mt-5">
               {todayTasks.map((item) => {
-                const progressPercentage = item.progresses?.reduce(
+                const progressPercentage = item.progresses.reduce(
                   (prev, current) => {
                     if (
-                      prev?.percentage == undefined ||
-                      current?.percentage == undefined
+                      prev.percentage == undefined ||
+                      current.percentage == undefined
                     ) {
                       return prev;
                     }
 
-                    return prev?.percentage > current?.percentage
+                    return prev.percentage > current.percentage
                       ? prev
                       : current;
                   },
@@ -129,7 +129,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                         )}
                       >
                         <TaskCategoryIcon
-                          category={item.category as TaskCategory}
+                          category={item.category}
                           color="white"
                         />
                       </div>
@@ -143,32 +143,40 @@ export const TaskTimeline = ({ userId }: Props) => {
                         </p>
                       </div>
                     }
-                    onClick={() => onClickTimelineItem(item.task_id as string)}
+                    onClick={() => onClickTimelineItem(item.task_id)}
                     className="cursor-pointer rounded-md border border-gray-200 py-4 pl-8 pr-4 hover:bg-gray-50"
                   >
                     <div>
                       <p className="text-md">{item.details}</p>
                     </div>
-                    <div className="mt-4 text-sm text-light underline">
-                      {item.completed?.toString() === 'True'
+                    <div
+                      className={`mt-4 text-sm text-light underline ${
+                        item.serious >= 4 && !item.completed
+                          ? 'text-rose-600'
+                          : ''
+                      }`}
+                    >
+                      {item.completed === true
                         ? '完了済み'
                         : `深刻度レベル: ${item.serious}`}
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item?.tags?.map((tag) => {
-                          return (
-                            <span
-                              key={tag}
-                              className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
-                            >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                        {item.tags.length > 0
+                          ? item.tags.map((tag) => {
+                              return (
+                                <span
+                                  key={tag}
+                                  className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })
+                          : null}
                       </div>
                       <p className="text-sm text-light">
-                        進捗率: {progressPercentage?.percentage}%
+                        進捗率: {progressPercentage.percentage}%
                       </p>
                     </div>
                   </Timeline.Item>
@@ -183,16 +191,16 @@ export const TaskTimeline = ({ userId }: Props) => {
             <h3 className="text-2xl font-bold">昨日</h3>
             <Timeline bulletSize={32} className="mt-5">
               {yesterdayTasks.map((item) => {
-                const progressPercentage = item.progresses?.reduce(
+                const progressPercentage = item.progresses.reduce(
                   (prev, current) => {
                     if (
-                      prev?.percentage == undefined ||
-                      current?.percentage == undefined
+                      prev.percentage == undefined ||
+                      current.percentage == undefined
                     ) {
                       return prev;
                     }
 
-                    return prev?.percentage > current?.percentage
+                    return prev.percentage > current.percentage
                       ? prev
                       : current;
                   },
@@ -217,7 +225,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                         )}
                       >
                         <TaskCategoryIcon
-                          category={item.category as TaskCategory}
+                          category={item.category}
                           color="white"
                         />
                       </div>
@@ -231,32 +239,40 @@ export const TaskTimeline = ({ userId }: Props) => {
                         </p>
                       </div>
                     }
-                    onClick={() => onClickTimelineItem(item.task_id as string)}
+                    onClick={() => onClickTimelineItem(item.task_id)}
                     className="cursor-pointer rounded-md border border-gray-200 py-4 pl-8 pr-4 hover:bg-gray-50"
                   >
                     <div>
                       <p className="text-md">{item.details}</p>
                     </div>
-                    <div className="mt-4 text-sm text-light underline">
-                      {item.completed?.toString() === 'True'
+                    <div
+                      className={`mt-4 text-sm text-light underline ${
+                        item.serious >= 4 && !item.completed
+                          ? 'text-rose-600'
+                          : ''
+                      }`}
+                    >
+                      {item.completed
                         ? '完了済み'
                         : `深刻度レベル: ${item.serious}`}
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item?.tags?.map((tag) => {
-                          return (
-                            <span
-                              key={tag}
-                              className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
-                            >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                        {item.tags.length > 0
+                          ? item.tags.map((tag) => {
+                              return (
+                                <span
+                                  key={tag}
+                                  className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })
+                          : null}
                       </div>
                       <p className="text-sm text-light">
-                        進捗率: {progressPercentage?.percentage}%
+                        進捗率: {progressPercentage.percentage}%
                       </p>
                     </div>
                   </Timeline.Item>
@@ -271,16 +287,16 @@ export const TaskTimeline = ({ userId }: Props) => {
             <h3 className="text-2xl font-bold">一昨日以前</h3>
             <Timeline bulletSize={32} className="mt-5">
               {beforeYesterdayTasks.map((item) => {
-                const progressPercentage = item.progresses?.reduce(
+                const progressPercentage = item.progresses.reduce(
                   (prev, current) => {
                     if (
-                      prev?.percentage == undefined ||
-                      current?.percentage == undefined
+                      prev.percentage == undefined ||
+                      current.percentage == undefined
                     ) {
                       return prev;
                     }
 
-                    return prev?.percentage > current?.percentage
+                    return prev.percentage > current.percentage
                       ? prev
                       : current;
                   },
@@ -305,7 +321,7 @@ export const TaskTimeline = ({ userId }: Props) => {
                         )}
                       >
                         <TaskCategoryIcon
-                          category={item.category as TaskCategory}
+                          category={item.category}
                           color="white"
                         />
                       </div>
@@ -319,32 +335,40 @@ export const TaskTimeline = ({ userId }: Props) => {
                         </p>
                       </div>
                     }
-                    onClick={() => onClickTimelineItem(item.task_id as string)}
+                    onClick={() => onClickTimelineItem(item.task_id)}
                     className="cursor-pointer rounded-md border border-gray-200 py-4 pl-8 pr-4 hover:bg-gray-50"
                   >
                     <div>
                       <p className="text-md">{item.details}</p>
                     </div>
-                    <div className="mt-4 text-sm text-light underline">
-                      {item.completed?.toString() === 'True'
+                    <div
+                      className={`mt-4 text-sm text-light underline ${
+                        item.serious >= 4 && !item.completed
+                          ? 'text-rose-600'
+                          : ''
+                      }`}
+                    >
+                      {item.completed === true
                         ? '完了済み'
                         : `深刻度レベル: ${item.serious}`}
                     </div>
                     <div className="mt-3 flex items-end justify-between">
                       <div className="mt-3 flex gap-x-2">
-                        {item?.tags?.map((tag) => {
-                          return (
-                            <span
-                              key={tag}
-                              className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
-                            >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                        {item.tags.length > 0
+                          ? item.tags.map((tag) => {
+                              return (
+                                <span
+                                  key={tag}
+                                  className="block rounded-md bg-gray-100 px-3 py-1 text-sm text-gray-500"
+                                >
+                                  {tag}
+                                </span>
+                              );
+                            })
+                          : null}
                       </div>
                       <p className="text-sm text-light">
-                        進捗率: {progressPercentage?.percentage}%
+                        進捗率: {progressPercentage.percentage}%
                       </p>
                     </div>
                   </Timeline.Item>
