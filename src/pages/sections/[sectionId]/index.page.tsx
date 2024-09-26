@@ -85,6 +85,7 @@ const SectionDetailPage: NextPage = () => {
             <div className="mt-4 flex gap-4">
               {users
                 ? users.map((user) => {
+                    if (user.section_id !== sectionId) return null;
                     return (
                       <Link
                         key={user.user_id}

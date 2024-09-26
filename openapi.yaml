@@ -580,6 +580,24 @@ components:
     #       $ref: '#/components/schemas/RequestText'
     #     file:
     #       $ref: '#/components/schemas/RequestFile'
+    CreateUserDiary:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: 日報の日付
+        message:
+          type: string
+          description: 日報の詳細
+          example: 今日は頑張った
+    CreateSectionDiary:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          description: 日報の日付
 
     createdAt:
       type: string
@@ -607,6 +625,9 @@ components:
           description: 進捗率
           minimum: 0
           maximum: 100
+      required:
+        - datetime
+        - percentage
 
     SectionId:
       type: integer
@@ -634,6 +655,12 @@ components:
           $ref: "#/components/schemas/createdAt"
         updated_at:
           $ref: "#/components/schemas/updatedAt"
+      required:
+        - seccion_id
+        - name
+        - icon
+        - created_at
+        - updated_at
 
     UserId:
       type: string
@@ -641,6 +668,7 @@ components:
       description: ユーザーID
       readOnly: true
       example: 4f73ab32-21bf-47ef-a119-fa024bc2b9cc
+
     User:
       type: object
       properties:
@@ -667,11 +695,21 @@ components:
           $ref: "#/components/schemas/createdAt"
         updated_at:
           $ref: "#/components/schemas/updatedAt"
+      required:
+        - name
+        - email
+        - section_id
+        - user_id
+        - icon
+        - created_at
+        - updated_at
+
     TaskId:
       type: string
       description: タスクID
       format: uuid
       readOnly: true
+
     TaskCategory: # タスクのカテゴリー。固定のものを用意する
       type: string
       description: タスクのカテゴリー
@@ -681,9 +719,11 @@ components:
         - GeneralAffairs
         - Diary
         - Other
+
     TaskTag:
       type: string
       description: タスクのタグ。自由につけられる
+
     Task:
       type: object
       properties:
@@ -723,11 +763,8 @@ components:
             - datetime: 2020-01-03T00:00:00+09:00
               percentage: 100
         completed:
-          type: string
+          type: boolean
           description: タスクが完了したかどうか。progressesから自動的に判定される。検索の高速化のために存在
-          enum:
-            - "True"
-            - "False"
           readOnly: true
         serious:
           type: integer
@@ -743,6 +780,19 @@ components:
           $ref: "#/components/schemas/createdAt"
         updated_at:
           $ref: "#/components/schemas/updatedAt"
+      required:
+        - task_id
+        - assigned_to
+        - section_id
+        - title
+        - category
+        - tags
+        - progresses
+        - completed
+        - serious
+        - details
+        - created_at
+        - updated_at
 
     DiaryId:
       type: string
@@ -765,6 +815,11 @@ components:
           type: string
           description: タスクの詳細
           example: hoge.fugaの単体テストを作成する
+        ai_analysis:
+          type: string
+          description: AIからの分析
+          example: hoge.fugaの分析
+          readOnly: true
         serious:
           type: integer
           description: 深刻度の総計
@@ -773,6 +828,16 @@ components:
           $ref: "#/components/schemas/createdAt"
         updated_at:
           $ref: "#/components/schemas/updatedAt"
+      required:
+        - diary_id
+        - section_id
+        - date
+        - details
+        - ai_analysis
+        - serious
+        - created_at
+        - updated_at
+
     UserDiary:
       type: object
       allOf:
@@ -785,38 +850,29 @@ components:
           description: 日報の作成に用いられたタスクのIDリスト
           items:
             $ref: "#/components/schemas/TaskId"
+      required:
+        - user_id
+        - task_ids
+
     SectionDiary:
       type: object
       allOf:
         - $ref: "#/components/schemas/DiaryBase"
       properties:
-        section:
-          allOf:
-            - $ref: "#/components/schemas/Section"
-          readOnly: true
         user_ids:
           type: array
           description: 日報の作成に用いられたユーザーのIDリスト
           items:
             $ref: "#/components/schemas/UserId"
-
-    CreateDiary:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-          description: 日報の日付
-        message:
-          type: string
-          description: 日報の詳細
-          example: 今日は頑張った
+      required:
+        - user_ids
 
     ChatId:
       type: string
       format: uuid
       description: chat 履歴ID
       readOnly: true
+
     Chat:
       type: object
       properties:
@@ -834,14 +890,25 @@ components:
           type: string
           description: チャット内容
           example: こんにちは
-        is_user_message:
-          type: boolean
+        from:
+          type: string
           description: ユーザーからのメッセージかどうか
-          example: true
+          enum:
+            - user
+            - bot
         created_at:
           $ref: "#/components/schemas/createdAt"
         updated_at:
           $ref: "#/components/schemas/updatedAt"
+      required:
+        - chat_id
+        - user_id
+        - timestamp
+        - message
+        - is_user_message
+        - created_at
+        - updated_at
+
   parameters:
     task_id_path:
       name: task_id
@@ -1177,14 +1244,14 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateDiary"
+            $ref: "#/components/schemas/CreateUserDiary"
     PostSectionDiary:
       required: true
       description: 日報の作成
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateDiary"
+            $ref: "#/components/schemas/CreateSectionDiary"
     PutUserDiary:
       required: true
       description: 日報の更新

@@ -33,10 +33,12 @@ export const TaskDetailModal = ({ taskId, ...modalProps }: Props) => {
       <div>
         <p className="text-md">{task.details}</p>
       </div>
-      <div className="mt-4 text-sm text-light underline">
-        {task.completed?.toString() === 'True'
-          ? '完了済み'
-          : `深刻度レベル: ${task.serious}`}
+      <div
+        className={`mt-4 text-sm text-light underline ${
+          task.serious >= 4 && !task.completed ? 'text-rose-600' : ''
+        }`}
+      >
+        {task.completed === true ? '完了済み' : `深刻度レベル: ${task.serious}`}
       </div>
       <div className="mt-3 flex items-end justify-between">
         <div className="mt-3 flex gap-x-2">
