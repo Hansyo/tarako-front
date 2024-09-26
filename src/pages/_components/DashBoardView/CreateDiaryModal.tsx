@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import { useState, type ReactNode } from 'react';
 
 type Props = {
-  onCreateDiary: () => void;
+  onCreateDiary: (input: string) => void;
 } & ModalProps;
 
 export const CreateDiaryModal = ({ onCreateDiary, ...modalProps }: Props) => {
@@ -24,6 +24,10 @@ export const CreateDiaryModal = ({ onCreateDiary, ...modalProps }: Props) => {
   const onClickRecordButton = () => {
     toggleRecording();
     setHasRecorded(true);
+  };
+
+  const onClickCreateDiaryButton = () => {
+    onCreateDiary(inputValue);
   };
 
   return (
@@ -84,7 +88,7 @@ export const CreateDiaryModal = ({ onCreateDiary, ...modalProps }: Props) => {
               <IconMicrophone size="1.75rem" />
             </ActionIcon>
             {inputValue && (
-              <Button color="pink" size="lg" onClick={onCreateDiary}>
+              <Button color="pink" size="lg" onClick={onClickCreateDiaryButton}>
                 日報を作成
               </Button>
             )}

@@ -44,60 +44,81 @@ export interface Chat {
    * @type {string}
    * @memberof Chat
    */
-  chat_id?: string;
+  chat_id: string;
   /**
    * ユーザーID
    * @type {string}
    * @memberof Chat
    */
-  user_id?: string;
+  user_id: string;
   /**
    * チャットの日時
    * @type {string}
    * @memberof Chat
    */
-  timestamp?: string;
+  timestamp: string;
   /**
    * チャット内容
    * @type {string}
    * @memberof Chat
    */
-  message?: string;
+  message: string;
   /**
    * ユーザーからのメッセージかどうか
-   * @type {boolean}
+   * @type {string}
    * @memberof Chat
    */
-  is_user_message?: boolean;
+  from?: ChatFromEnum;
   /**
    * 作成日時
    * @type {string}
    * @memberof Chat
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof Chat
    */
-  updated_at?: string;
+  updated_at: string;
+}
+
+export const ChatFromEnum = {
+  User: 'user',
+  Bot: 'bot',
+} as const;
+
+export type ChatFromEnum = (typeof ChatFromEnum)[keyof typeof ChatFromEnum];
+
+/**
+ *
+ * @export
+ * @interface CreateSectionDiary
+ */
+export interface CreateSectionDiary {
+  /**
+   * 日報の日付
+   * @type {string}
+   * @memberof CreateSectionDiary
+   */
+  date?: string;
 }
 /**
  *
  * @export
- * @interface CreateDiary
+ * @interface CreateUserDiary
  */
-export interface CreateDiary {
+export interface CreateUserDiary {
   /**
    * 日報の日付
    * @type {string}
-   * @memberof CreateDiary
+   * @memberof CreateUserDiary
    */
   date?: string;
   /**
    * 日報の詳細
    * @type {string}
-   * @memberof CreateDiary
+   * @memberof CreateUserDiary
    */
   message?: string;
 }
@@ -112,43 +133,49 @@ export interface DiaryBase {
    * @type {string}
    * @memberof DiaryBase
    */
-  diary_id?: string;
+  diary_id: string;
   /**
    * 課ID
    * @type {number}
    * @memberof DiaryBase
    */
-  section_id?: number;
+  section_id: number;
   /**
    * 日報の日付
    * @type {string}
    * @memberof DiaryBase
    */
-  date?: string;
+  date: string;
   /**
    * タスクの詳細
    * @type {string}
    * @memberof DiaryBase
    */
-  details?: string;
+  details: string;
+  /**
+   * AIからの分析
+   * @type {string}
+   * @memberof DiaryBase
+   */
+  ai_analysis: string;
   /**
    * 深刻度の総計
    * @type {number}
    * @memberof DiaryBase
    */
-  serious?: number;
+  serious: number;
   /**
    * 作成日時
    * @type {string}
    * @memberof DiaryBase
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof DiaryBase
    */
-  updated_at?: string;
+  updated_at: string;
 }
 /**
  *
@@ -205,13 +232,13 @@ export interface ProgressItem {
    * @type {string}
    * @memberof ProgressItem
    */
-  datetime?: string;
+  datetime: string;
   /**
    * 進捗率
    * @type {number}
    * @memberof ProgressItem
    */
-  percentage?: number;
+  percentage: number;
 }
 /**
  *
@@ -230,76 +257,68 @@ export interface PutTaskEntryRequest {
    * @type {string}
    * @memberof PutTaskEntryRequest
    */
-  task_id?: string;
+  task_id: string;
   /**
    * 課ID
    * @type {number}
    * @memberof PutTaskEntryRequest
    */
-  section_id?: number;
+  section_id: number;
   /**
    * タスク名
    * @type {string}
    * @memberof PutTaskEntryRequest
    */
-  title?: string;
+  title: string;
   /**
    *
    * @type {TaskCategory}
    * @memberof PutTaskEntryRequest
    */
-  category?: TaskCategory;
+  category: TaskCategory;
   /**
    * タスクのタグリスト
    * @type {Array<string>}
    * @memberof PutTaskEntryRequest
    */
-  tags?: Array<string>;
+  tags: Array<string>;
   /**
    * 進捗状況リスト
    * @type {Array<ProgressItem>}
    * @memberof PutTaskEntryRequest
    */
-  progresses?: Array<ProgressItem>;
+  progresses: Array<ProgressItem>;
   /**
    * タスクが完了したかどうか。progressesから自動的に判定される。検索の高速化のために存在
-   * @type {string}
+   * @type {boolean}
    * @memberof PutTaskEntryRequest
    */
-  completed?: PutTaskEntryRequestCompletedEnum;
+  completed: boolean;
   /**
    * 深刻度
    * @type {number}
    * @memberof PutTaskEntryRequest
    */
-  serious?: number;
+  serious: number;
   /**
    * タスクの詳細
    * @type {string}
    * @memberof PutTaskEntryRequest
    */
-  details?: string;
+  details: string;
   /**
    * 作成日時
    * @type {string}
    * @memberof PutTaskEntryRequest
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof PutTaskEntryRequest
    */
-  updated_at?: string;
+  updated_at: string;
 }
-
-export const PutTaskEntryRequestCompletedEnum = {
-  True: 'True',
-  False: 'False',
-} as const;
-
-export type PutTaskEntryRequestCompletedEnum =
-  (typeof PutTaskEntryRequestCompletedEnum)[keyof typeof PutTaskEntryRequestCompletedEnum];
 
 /**
  *
@@ -343,25 +362,25 @@ export interface Section {
    * @type {string}
    * @memberof Section
    */
-  name?: string;
+  name: string;
   /**
    * 課のアイコン名
    * @type {string}
    * @memberof Section
    */
-  icon?: string;
+  icon: string;
   /**
    * 作成日時
    * @type {string}
    * @memberof Section
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof Section
    */
-  updated_at?: string;
+  updated_at: string;
 }
 /**
  *
@@ -370,59 +389,59 @@ export interface Section {
  */
 export interface SectionDiary {
   /**
-   *
-   * @type {Section}
-   * @memberof SectionDiary
-   */
-  section?: Section;
-  /**
    * 日報の作成に用いられたユーザーのIDリスト
    * @type {Array<string>}
    * @memberof SectionDiary
    */
-  user_ids?: Array<string>;
+  user_ids: Array<string>;
   /**
    * 日報ID
    * @type {string}
    * @memberof SectionDiary
    */
-  diary_id?: string;
+  diary_id: string;
   /**
    * 課ID
    * @type {number}
    * @memberof SectionDiary
    */
-  section_id?: number;
+  section_id: number;
   /**
    * 日報の日付
    * @type {string}
    * @memberof SectionDiary
    */
-  date?: string;
+  date: string;
   /**
    * タスクの詳細
    * @type {string}
    * @memberof SectionDiary
    */
-  details?: string;
+  details: string;
+  /**
+   * AIからの分析
+   * @type {string}
+   * @memberof SectionDiary
+   */
+  ai_analysis: string;
   /**
    * 深刻度の総計
    * @type {number}
    * @memberof SectionDiary
    */
-  serious?: number;
+  serious: number;
   /**
    * 作成日時
    * @type {string}
    * @memberof SectionDiary
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof SectionDiary
    */
-  updated_at?: string;
+  updated_at: string;
 }
 /**
  *
@@ -435,82 +454,74 @@ export interface Task {
    * @type {string}
    * @memberof Task
    */
-  task_id?: string;
+  task_id: string;
   /**
    * ユーザーID
    * @type {string}
    * @memberof Task
    */
-  assigned_to?: string | null;
+  assigned_to: string | null;
   /**
    * 課ID
    * @type {number}
    * @memberof Task
    */
-  section_id?: number;
+  section_id: number;
   /**
    * タスク名
    * @type {string}
    * @memberof Task
    */
-  title?: string;
+  title: string;
   /**
    *
    * @type {TaskCategory}
    * @memberof Task
    */
-  category?: TaskCategory;
+  category: TaskCategory;
   /**
    * タスクのタグリスト
    * @type {Array<string>}
    * @memberof Task
    */
-  tags?: Array<string>;
+  tags: Array<string>;
   /**
    * 進捗状況リスト
    * @type {Array<ProgressItem>}
    * @memberof Task
    */
-  progresses?: Array<ProgressItem>;
+  progresses: Array<ProgressItem>;
   /**
    * タスクが完了したかどうか。progressesから自動的に判定される。検索の高速化のために存在
-   * @type {string}
+   * @type {boolean}
    * @memberof Task
    */
-  completed?: TaskCompletedEnum;
+  completed: boolean;
   /**
    * 深刻度
    * @type {number}
    * @memberof Task
    */
-  serious?: number;
+  serious: number;
   /**
    * タスクの詳細
    * @type {string}
    * @memberof Task
    */
-  details?: string;
+  details: string;
   /**
    * 作成日時
    * @type {string}
    * @memberof Task
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof Task
    */
-  updated_at?: string;
+  updated_at: string;
 }
-
-export const TaskCompletedEnum = {
-  True: 'True',
-  False: 'False',
-} as const;
-
-export type TaskCompletedEnum =
-  (typeof TaskCompletedEnum)[keyof typeof TaskCompletedEnum];
 
 /**
  * タスクのカテゴリー
@@ -539,43 +550,43 @@ export interface User {
    * @type {string}
    * @memberof User
    */
-  name?: string;
+  name: string;
   /**
    *
    * @type {string}
    * @memberof User
    */
-  icon?: string;
+  icon: string;
   /**
    *
    * @type {string}
    * @memberof User
    */
-  email?: string;
+  email: string;
   /**
    * 課ID
    * @type {number}
    * @memberof User
    */
-  section_id?: number;
+  section_id: number;
   /**
    * ユーザーID
    * @type {string}
    * @memberof User
    */
-  user_id?: string;
+  user_id: string;
   /**
    * 作成日時
    * @type {string}
    * @memberof User
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof User
    */
-  updated_at?: string;
+  updated_at: string;
 }
 /**
  *
@@ -588,55 +599,61 @@ export interface UserDiary {
    * @type {string}
    * @memberof UserDiary
    */
-  user_id?: string;
+  user_id: string;
   /**
    * 日報の作成に用いられたタスクのIDリスト
    * @type {Array<string>}
    * @memberof UserDiary
    */
-  task_ids?: Array<string>;
+  task_ids: Array<string>;
   /**
    * 日報ID
    * @type {string}
    * @memberof UserDiary
    */
-  diary_id?: string;
+  diary_id: string;
   /**
    * 課ID
    * @type {number}
    * @memberof UserDiary
    */
-  section_id?: number;
+  section_id: number;
   /**
    * 日報の日付
    * @type {string}
    * @memberof UserDiary
    */
-  date?: string;
+  date: string;
   /**
    * タスクの詳細
    * @type {string}
    * @memberof UserDiary
    */
-  details?: string;
+  details: string;
+  /**
+   * AIからの分析
+   * @type {string}
+   * @memberof UserDiary
+   */
+  ai_analysis: string;
   /**
    * 深刻度の総計
    * @type {number}
    * @memberof UserDiary
    */
-  serious?: number;
+  serious: number;
   /**
    * 作成日時
    * @type {string}
    * @memberof UserDiary
    */
-  created_at?: string;
+  created_at: string;
   /**
    * 更新日時
    * @type {string}
    * @memberof UserDiary
    */
-  updated_at?: string;
+  updated_at: string;
 }
 
 /**
@@ -1564,19 +1581,23 @@ export const SectionDiaryApiAxiosParamCreator = function (
     /**
      * 課に所属しているユーザーの日報から、課の日報を作成
      * @param {number} sectionId
-     * @param {CreateDiary} createDiary 日報の作成
+     * @param {CreateSectionDiary} createSectionDiary 日報の作成
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     postSectionDiaryEntry: async (
       sectionId: number,
-      createDiary: CreateDiary,
+      createSectionDiary: CreateSectionDiary,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'sectionId' is not null or undefined
       assertParamExists('postSectionDiaryEntry', 'sectionId', sectionId);
-      // verify required parameter 'createDiary' is not null or undefined
-      assertParamExists('postSectionDiaryEntry', 'createDiary', createDiary);
+      // verify required parameter 'createSectionDiary' is not null or undefined
+      assertParamExists(
+        'postSectionDiaryEntry',
+        'createSectionDiary',
+        createSectionDiary,
+      );
       const localVarPath = `/diary/sections/{section_id}`.replace(
         `{${'section_id'}}`,
         encodeURIComponent(String(sectionId)),
@@ -1607,7 +1628,7 @@ export const SectionDiaryApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        createDiary,
+        createSectionDiary,
         localVarRequestOptions,
         configuration,
       );
@@ -1807,13 +1828,13 @@ export const SectionDiaryApiFp = function (configuration?: Configuration) {
     /**
      * 課に所属しているユーザーの日報から、課の日報を作成
      * @param {number} sectionId
-     * @param {CreateDiary} createDiary 日報の作成
+     * @param {CreateSectionDiary} createSectionDiary 日報の作成
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async postSectionDiaryEntry(
       sectionId: number,
-      createDiary: CreateDiary,
+      createSectionDiary: CreateSectionDiary,
       options?: AxiosRequestConfig,
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SectionDiary>
@@ -1821,7 +1842,7 @@ export const SectionDiaryApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.postSectionDiaryEntry(
           sectionId,
-          createDiary,
+          createSectionDiary,
           options,
         );
       return createRequestFunction(
@@ -1944,17 +1965,17 @@ export const SectionDiaryApiFactory = function (
     /**
      * 課に所属しているユーザーの日報から、課の日報を作成
      * @param {number} sectionId
-     * @param {CreateDiary} createDiary 日報の作成
+     * @param {CreateSectionDiary} createSectionDiary 日報の作成
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     postSectionDiaryEntry(
       sectionId: number,
-      createDiary: CreateDiary,
+      createSectionDiary: CreateSectionDiary,
       options?: any,
     ): AxiosPromise<SectionDiary> {
       return localVarFp
-        .postSectionDiaryEntry(sectionId, createDiary, options)
+        .postSectionDiaryEntry(sectionId, createSectionDiary, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -2062,18 +2083,18 @@ export class SectionDiaryApi extends BaseAPI {
   /**
    * 課に所属しているユーザーの日報から、課の日報を作成
    * @param {number} sectionId
-   * @param {CreateDiary} createDiary 日報の作成
+   * @param {CreateSectionDiary} createSectionDiary 日報の作成
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SectionDiaryApi
    */
   public postSectionDiaryEntry(
     sectionId: number,
-    createDiary: CreateDiary,
+    createSectionDiary: CreateSectionDiary,
     options?: AxiosRequestConfig,
   ) {
     return SectionDiaryApiFp(this.configuration)
-      .postSectionDiaryEntry(sectionId, createDiary, options)
+      .postSectionDiaryEntry(sectionId, createSectionDiary, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -3430,19 +3451,23 @@ export const UserDiaryApiAxiosParamCreator = function (
     /**
      * 日報を作成
      * @param {string} userId
-     * @param {CreateDiary} createDiary 日報の作成
+     * @param {CreateUserDiary} createUserDiary 日報の作成
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     postUserDiaryEntry: async (
       userId: string,
-      createDiary: CreateDiary,
+      createUserDiary: CreateUserDiary,
       options: AxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       // verify required parameter 'userId' is not null or undefined
       assertParamExists('postUserDiaryEntry', 'userId', userId);
-      // verify required parameter 'createDiary' is not null or undefined
-      assertParamExists('postUserDiaryEntry', 'createDiary', createDiary);
+      // verify required parameter 'createUserDiary' is not null or undefined
+      assertParamExists(
+        'postUserDiaryEntry',
+        'createUserDiary',
+        createUserDiary,
+      );
       const localVarPath = `/diary/users/{user_id}`.replace(
         `{${'user_id'}}`,
         encodeURIComponent(String(userId)),
@@ -3473,7 +3498,7 @@ export const UserDiaryApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        createDiary,
+        createUserDiary,
         localVarRequestOptions,
         configuration,
       );
@@ -3668,13 +3693,13 @@ export const UserDiaryApiFp = function (configuration?: Configuration) {
     /**
      * 日報を作成
      * @param {string} userId
-     * @param {CreateDiary} createDiary 日報の作成
+     * @param {CreateUserDiary} createUserDiary 日報の作成
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async postUserDiaryEntry(
       userId: string,
-      createDiary: CreateDiary,
+      createUserDiary: CreateUserDiary,
       options?: AxiosRequestConfig,
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDiary>
@@ -3682,7 +3707,7 @@ export const UserDiaryApiFp = function (configuration?: Configuration) {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.postUserDiaryEntry(
           userId,
-          createDiary,
+          createUserDiary,
           options,
         );
       return createRequestFunction(
@@ -3805,17 +3830,17 @@ export const UserDiaryApiFactory = function (
     /**
      * 日報を作成
      * @param {string} userId
-     * @param {CreateDiary} createDiary 日報の作成
+     * @param {CreateUserDiary} createUserDiary 日報の作成
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     postUserDiaryEntry(
       userId: string,
-      createDiary: CreateDiary,
+      createUserDiary: CreateUserDiary,
       options?: any,
     ): AxiosPromise<UserDiary> {
       return localVarFp
-        .postUserDiaryEntry(userId, createDiary, options)
+        .postUserDiaryEntry(userId, createUserDiary, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -3923,18 +3948,18 @@ export class UserDiaryApi extends BaseAPI {
   /**
    * 日報を作成
    * @param {string} userId
-   * @param {CreateDiary} createDiary 日報の作成
+   * @param {CreateUserDiary} createUserDiary 日報の作成
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof UserDiaryApi
    */
   public postUserDiaryEntry(
     userId: string,
-    createDiary: CreateDiary,
+    createUserDiary: CreateUserDiary,
     options?: AxiosRequestConfig,
   ) {
     return UserDiaryApiFp(this.configuration)
-      .postUserDiaryEntry(userId, createDiary, options)
+      .postUserDiaryEntry(userId, createUserDiary, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

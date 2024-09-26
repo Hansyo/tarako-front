@@ -20,13 +20,22 @@ export const ChatInput = ({
   recording,
   onSend,
 }: Props) => {
+  const doFunctionWhenEnterPlusMeta = (
+    e: React.KeyboardEvent,
+    func: () => void,
+  ) => {
+    if (e.key === 'Enter' && e.metaKey) {
+      func();
+    }
+  };
   return (
     <div>
       {recording && <div className="mb-8 text-lg">{transcript}</div>}
-      <div className="flex items-end gap-x-2">
+      <div className="items-end gap-x-2 md:flex">
         <Textarea
           value={value}
           onChange={(e) => onChange(e.currentTarget.value)}
+          onKeyDown={(e) => doFunctionWhenEnterPlusMeta(e, onSend)}
           placeholder="やったことや今の気分を入力してください"
           autosize
           minRows={1}
@@ -34,7 +43,7 @@ export const ChatInput = ({
           disabled={recording}
           className="flex-1"
         />
-        <div className="flex items-center gap-x-12">
+        <div className="flex items-center justify-center gap-x-2">
           <ActionIcon
             size="lg"
             color="gray"

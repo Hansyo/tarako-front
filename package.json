@@ -14,7 +14,7 @@
     "format": "next lint --fix && prettier --write .",
     "prepare": "husky install",
     "generate-typescript-axios": "openapi-generator-cli generate -g typescript-axios -i ./openapi.yaml -o ./src/generated/typescript-axios",
-    "download-open-api-yaml":"curl -o openapi.yaml https://tarako-aws-sam.s3.ap-northeast-1.amazonaws.com/dev/openapi.yaml"
+    "download-open-api-yaml": "curl -o openapi.yaml https://tarako-aws-sam.s3.ap-northeast-1.amazonaws.com/dev/openapi.yaml"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -33,10 +33,12 @@
     "destyle.css": "^4.0.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "lodash": "^4.17.21",
     "next": "13.4.19",
     "postcss": "8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
     "react-speech-recognition": "^3.10.0",
     "recharts": "^2.8.0",
     "swr": "^2.2.2",
